@@ -4,39 +4,49 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Happy Anniversary, Mummy & Papa!</title>
+
   <style>
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
       background: #f7e9f3;
       color: #333;
+      overflow-x: hidden;
     }
+
     header {
       text-align: center;
       padding: 40px 20px;
       background: #ffb6c1;
       color: #fff;
     }
+
     header h1 {
       font-size: 3rem;
       margin: 0;
     }
+
     section {
       padding: 40px 20px;
       max-width: 900px;
       margin: auto;
     }
-    .photos {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-      margin-top: 20px;
+
+    .btn {
+      background: #d6336c;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 25px;
+      border: none;
+      font-size: 1rem;
+      cursor: pointer;
+      margin: 10px 0;
+      transition: 0.3s;
     }
-    .photos img {
-      width: 100%;
-      border-radius: 15px;
-      box-shadow: 0 8px 15px rgba(0,0,0,0.15);
-    }
+    .btn:hover { background: #b02052; }
+
+    .hidden { display: none; animation: fadeIn 0.7s ease; }
+
     .quote {
       background: #fff;
       padding: 25px;
@@ -47,97 +57,179 @@
       font-style: italic;
       text-align: center;
     }
-    footer {
-      margin-top: 40px;
+
+    /* Slider */
+    .slider { position: relative; max-width: 600px; margin: 20px auto; }
+    .slide { display: none; width: 100%; border-radius: 15px; box-shadow: 0 8px 15px rgba(0,0,0,0.15); }
+    .arrow {
+      position: absolute;
+      top: 50%; transform: translateY(-50%);
+      background: #ffffffaa;
+      border-radius: 50%; padding: 10px 15px;
+      cursor: pointer; font-size: 20px;
+    }
+    .left { left: -10px; }
+    .right { right: -10px; }
+
+    /* Timeline */
+    .timeline {
+      margin-top: 50px;
+      position: relative;
+      padding-left: 30px;
+      border-left: 4px solid #d6336c;
+    }
+    .timeline-item {
+      margin-bottom: 30px;
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: 0.8s ease;
+    }
+    .timeline-item.show { opacity: 1; transform: translateX(0); }
+    .timeline-item h3 { margin: 0; color: #d6336c; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px);} to { opacity: 1; transform: translateY(0);} }
+
+    /* Floating hearts */
+    @keyframes rise { 0% {transform: translateY(0);opacity:1;} 100% {transform: translateY(-200px);opacity:0;} }
+
+    /* Confetti */
+    .confetti {
+      position: fixed;
+      width: 8px;
+      height: 12px;
+      background: pink;
+      top: -20px;
+      animation: drop 2s linear forwards;
+    }
+    @keyframes drop { to { transform: translateY(110vh) rotate(360deg); opacity: 0; } }
+
+    /* Balloons */
+    .balloon {
+      position: fixed;
+      bottom: -50px;
+      font-size: 40px;
+      animation: floatUp 6s linear forwards;
+      opacity: 0.9;
+    }
+    @keyframes floatUp { 100% { transform: translateY(-120vh); opacity: 0; } }
+
+    /* Scroll hearts */
+    .scroll-heart {
+      position: fixed;
+      color: #ff4d6d;
+      font-size: 20px;
+      animation: fall 1.5s linear forwards;
+    }
+    @keyframes fall { to { transform: translateY(100vh); opacity:0; } }
+
+    /* Gift Box */
+    .gift-box {
+      font-size: 70px;
+      cursor: pointer;
       text-align: center;
-      padding: 20px;
-      background: #ffdce5;
+      margin-top: 40px;
+      transition: transform 0.4s;
     }
-    .contact {
-      font-size: 1rem;
-      color: #555;
-    }
+    .gift-box.opened { transform: scale(0) rotate(360deg); }
+
+    .gift-message { display: none; font-size: 1.3rem; margin-top: 20px; text-align:center; }
+
   </style>
 </head>
+
 <body>
-  <nav style="display:flex;justify-content:center;gap:30px;padding:15px;background:#ffd1dc;position:sticky;top:0;z-index:10;box-shadow:0 2px 5px rgba(0,0,0,0.1);">
-  <a href="#journey" style="text-decoration:none;color:#d6336c;font-weight:600;">Journey</a>
-  <a href="#memories" style="text-decoration:none;color:#d6336c;font-weight:600;">Memories</a>
-  <a href="#about" style="text-decoration:none;color:#d6336c;font-weight:600;">About Us</a>
-</nav>
+<header><h1>Happy Anniversary, Mummy & Papa ❤️</h1></header>
+<section>
 
-<header>
-    <h1>Happy Anniversary, Mummy & Papa ❤️ </h1>
-   
-  </header>
+<button class="btn" onclick="triggerSection('journeyBox')">Click to View "The Beautiful Journey"</button>
+<div id="journeyBox" class="hidden">
+  <h2 id="typewriterText"></h2>
+  <div class="quote">31 years of love,<br>31 years of care,<br>A beautiful journey together</div>
+</div>
 
-  <section id="journey">
-    <h2>The Beautiful Journey</h2>
-    <p>
-     Two hearts, one home ❤️
-    </p>
+<h2>Memories</h2>
+<div class="slider">
+  <img class="slide" src="https://raw.githubusercontent.com/krina-shah/Anniversary-Website/main/WhatsApp%20Image%202026-02-04%20at%2011.25.49%20AM.jpeg">
+  <img class="slide" src="https://raw.githubusercontent.com/krina-shah/Anniversary-Website/main/(281).JPG">
+  <img class="slide" src="https://raw.githubusercontent.com/krina-shah/Anniversary-Website/main/(1479).JPG">
+  <div class="arrow left" onclick="changeSlide(-1)">❮</div>
+  <div class="arrow right" onclick="changeSlide(1)">❯</div>
+</div>
 
-    <div class="quote">31 years of love,
-31 years of care,
-A beautiful journey together</div>
-
-    <h2 id="memories">Memories</h2>
-    <div class="photos">
-      <img src="https://raw.githubusercontent.com/krina-shah/Anniversary-Website/main/WhatsApp%20Image%202026-02-04%20at%2011.25.49%20AM.jpeg" />
-      <img src="https://raw.githubusercontent.com/krina-shah/Anniversary-Website/main/(281).JPG" />
-      <img src="https://raw.githubusercontent.com/krina-shah/Anniversary-Website/main/(1479).JPG" />
-    </div>
-
-    
-    <h2 id="message">Message from Raj & Krina</h2>
-  <p>Dearest Mummy & Papa,<br>
-  </p>
-
-  <div class="quote">“Congratulation on another year of love and happiness. Wishing many more years and milestones of happiness to come! Happy anniversary.”</div>
+<button class="btn" onclick="triggerSection('messageBox')">Click to View "Message from Raj & Krina"</button>
+<div id="messageBox" class="hidden">
+  <h2>Message from Raj & Krina</h2>
+  <div class="quote">“Congratulations on another year of love and happiness. Wishing many more years and milestones of joy to come! ❤️”</div>
+</div>
 
 
- 
+
+<div class="gift-box" onclick="openGift()">🎁</div>
+<div id="giftMessage" class="gift-message">“A small surprise… Thank you for filling our lives with love.” ❤️</div>
+
 </section>
+<footer><p>Made with ❤️ by your loving daughter-in-law</p></footer>
 
 <script>
-// Slideshow
-let slideIndex = 0;
-const slides = document.querySelectorAll('.slide');
-setInterval(() => {
-  slides[slideIndex].style.display = 'none';
-  slideIndex = (slideIndex + 1) % slides.length;
-  slides[slideIndex].style.display = 'block';
-}, 2000);
+function triggerSection(id) {
+  const sec = document.getElementById(id);
+  sec.classList.toggle('hidden');
+  launchConfetti();
+}
 
-// Floating hearts
-setInterval(() => {
-  const heart = document.createElement('div');
-  heart.innerHTML = '💖';
-  heart.style.position = 'fixed';
-  heart.style.left = Math.random() * window.innerWidth + 'px';
-  heart.style.bottom = '-20px';
-  heart.style.fontSize = '24px';
-  heart.style.opacity = 0.8;
-  heart.style.animation = 'rise 4s linear forwards';
-  document.body.appendChild(heart);
-  setTimeout(() => heart.remove(), 4000);
-}, 800);
+/* Slider */
+let currentSlide = 0;
+const slides = document.querySelectorAll('.slide');
+slides[currentSlide].style.display = 'block';
+function changeSlide(dir){
+  slides[currentSlide].style.display = 'none';
+  currentSlide = (currentSlide + dir + slides.length) % slides.length;
+  slides[currentSlide].style.display = 'block';
+}
+
+/* Hearts */
+setInterval(()=>{
+  const h=document.createElement('div'); h.innerHTML='💖'; h.style.position='fixed'; h.style.fontSize='24px'; h.style.left=Math.random()*innerWidth+'px'; h.style.bottom='-20px'; h.style.animation='rise 4s linear'; document.body.appendChild(h); setTimeout(()=>h.remove(),4000);
+},800);
+
+/* Confetti */
+function launchConfetti(){
+  for(let i=0;i<40;i++){
+    const c=document.createElement('div');
+    c.className='confetti';
+    c.style.left=Math.random()*innerWidth+'px';
+    c.style.background=randomColor();
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),2000);
+  }
+}
+function randomColor(){ const colors=["#ff4d6d","#ffb3c6","#ffd6e0","#e63946","#d6336c"]; return colors[Math.floor(Math.random()*colors.length)]; }
+
+/* Timeline */
+const items=document.querySelectorAll('.timeline-item');
+function showTimeline(){ items.forEach(it=>{ const r=it.getBoundingClientRect(); if(r.top<innerHeight-50) it.classList.add('show'); }); }
+document.addEventListener('scroll',showTimeline); showTimeline();
+
+/* Balloons */
+setInterval(()=>{
+  const b=document.createElement('div'); b.className='balloon'; b.innerHTML='🎈'; b.style.left=Math.random()*innerWidth+'px'; document.body.appendChild(b); setTimeout(()=>b.remove(),6000);
+},1500);
+
+/* Scroll Hearts */
+window.addEventListener('scroll',()=>{
+  const h=document.createElement('div'); h.className='scroll-heart'; h.innerHTML='💗'; h.style.left=Math.random()*innerWidth+'px'; h.style.top=scrollY+'px'; document.body.appendChild(h); setTimeout(()=>h.remove(),1500);
+});
+
+/* Gift */
+function openGift(){ const box=document.querySelector('.gift-box'); const msg=document.getElementById('giftMessage'); box.classList.add('opened'); setTimeout(()=> msg.style.display='block',500); }
+
+/* Typewriter */
+const typeText="31 years of love, laughter and togetherness ❤️";
+let i=0;
+function typeWriter(){ if(i<typeText.length){ document.getElementById('typewriterText').innerHTML+=typeText.charAt(i); i++; setTimeout(typeWriter,60);} }
+typeWriter();
 </script>
 
-<style>
-@keyframes rise {
-  0% {transform: translateY(0);opacity:1;}
-  100% {transform: translateY(-200px);opacity:0;}
-}
-</style>
-
-</section>
-
-  <footer>
-    <p class="contact">Made with ❤️ by your loving daughter‑in‑law</p>
-  </footer>
 </body>
 </html>
-
-
-
